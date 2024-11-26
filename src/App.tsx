@@ -13,7 +13,10 @@ function App() {
       <Route path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
       </Route>
-    )
+    ),
+    {
+      basename: "/react-ts-rtk-ecom",
+    }
   );
   return <RouterProvider router={router} />;
 }
