@@ -18,7 +18,6 @@ const Sidebar = () => {
     setMinPrice,
     maxPrice,
     setMaxPrice,
-    keyword,
     setKeyword,
   } = useFilter();
 
@@ -59,11 +58,13 @@ const Sidebar = () => {
   };
 
   const handleRadioChangeCategories = (category: string) => {
+    setKeyword("");
     setSelectedCategory(category);
   };
 
   const handleKeywordClick = (keyword: string) => {
     setKeyword(keyword);
+    setSelectedCategory("");
   };
 
   const handleResetFilters = () => {
@@ -73,6 +74,7 @@ const Sidebar = () => {
     setMinPrice(undefined);
     setKeyword("");
   };
+
   return (
     <div className="w-64 h-screen p-5">
       <h1 className="mt-4 text-2xl font-bold mb-18">React Store</h1>

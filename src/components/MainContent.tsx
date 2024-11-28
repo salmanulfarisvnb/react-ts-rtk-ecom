@@ -31,7 +31,7 @@ const MainContent = () => {
       .catch((Error) => {
         console.error("error fetch data", Error);
       });
-  }, []);
+  }, [keyword]);
 
   const getFilterProducts = () => {
     let filterProducts = products;
@@ -130,6 +130,11 @@ const MainContent = () => {
             />
           ))}
         </div>
+        <div className="flex flex-col items-center justify-between mt-5 sm:flex-row">
+          {/* previous */}
+        </div>
+        {/* 1,2,3,4,5 */}
+        {/* next */}
       </div>
     </section>
   );
