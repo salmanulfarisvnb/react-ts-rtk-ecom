@@ -2,9 +2,9 @@ import { Outlet } from "react-router-dom";
 
 const RootLayout = () => {
   return (
-    <main>
+    <div className="flex flex-wrap justify-between w-full rounded ">
       <Outlet />
-    </main>
+    </div>
   );
 };
 
