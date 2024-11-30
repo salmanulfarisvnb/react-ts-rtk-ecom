@@ -22,7 +22,6 @@ const ProductPage = () => {
       .then((res) => setProduct(res.data))
       .catch((Error) => console.error(`fetching filed ${Error}`));
   }, [id]);
-  console.log(product);
 
   if (!product) return <h1>Loading.....</h1>;
 
