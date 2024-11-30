@@ -31,7 +31,7 @@ const MainContent = () => {
       .catch((Error) => {
         console.error("error fetch data", Error);
       });
-  }, [keyword]);
+  }, [keyword, currentPage]);
 
   const getFilterProducts = () => {
     let filterProducts = products;
@@ -77,6 +77,35 @@ const MainContent = () => {
 
   const filterProducts = getFilterProducts();
 
+  const totalProduct: number = 100;
+  const totalPage = Math.ceil(totalProduct / itemPerPage);
+
+  const handlePageChange = (page: number) => {
+    if (page > 0 && page >= totalPage) {
+      setCurrentPage(page);
+    }
+  };
+
+  const paginationButton = () => {
+    const buttons: number[] = [];
+    let startPage = Math.max(1, currentPage - 2);
+    let endPage = Math.min(totalPage, currentPage + 2);
+
+    if (currentPage - 2 > 1) {
+      endPage = Math.min(totalPage, endPage + (2 - currentPage - 1));
+    }
+
+    if (currentPage + 2 > totalPage) {
+      startPage = Math.min(1, startPage - (2 - totalPage - currentPage));
+    }
+
+    for (let page = startPage; page <= endPage; page++) {
+      buttons.push(page);
+    }
+
+    return buttons;
+  };
+
   return (
     <section className="xl:w-[55rem] lg:w-[55rem] sm:w-[40rem] xs:w-[20rem]">
       <div className="mb-5">
@@ -102,12 +131,14 @@ const MainContent = () => {
                 >
                   Cheap
                 </button>
+
                 <button
                   onClick={() => setFilter("expensive")}
                   className="block w-full px-4 py-2 text-left hover:bg-gray-200"
                 >
                   Expensive
                 </button>
+
                 <button
                   onClick={() => setFilter("popular")}
                   className="block w-full px-4 py-2 text-left hover:bg-gray-200"
@@ -132,9 +163,40 @@ const MainContent = () => {
         </div>
         <div className="flex flex-col items-center justify-between mt-5 sm:flex-row">
           {/* previous */}
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="p-2 px-4 border rounded-full"
+          >
+            Previous
+          </button>
+
+          {/* 1,2,3,4,5 */}
+
+          <div className="flex flex-wrap items-center justify-center">
+            {paginationButton().map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`border px-4 py-2 mx-1 rounded-full ${
+                  page === currentPage ? "bg-black px-5 py-3 text-white" : ""
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+
+          {/* next */}
+
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPage}
+            className="p-2 px-4 border rounded-full"
+          >
+            Next
+          </button>
         </div>
-        {/* 1,2,3,4,5 */}
-        {/* next */}
       </div>
     </section>
   );
